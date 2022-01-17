@@ -2,6 +2,7 @@
 
 The only thing you need to do to make this back-end work is to add an .env file. What should be in that file is:
 ```
+# PostgreSQL environment variables:
 PGHOST=localhost
 PGUSER=postgres
 PGDATABASE=postgres

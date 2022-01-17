@@ -5,15 +5,19 @@ const express = require('express')
 const cors = require('cors');
 require('dotenv').config();
 
-const { Pool } = require('pg') //this line is only needed for the PostgreSQL version
-const pool = new Pool() //this line is only needed for the PostgreSQL version
+//These lines are only needed for the PostgreSQL part
+const { Pool } = require('pg') 
+const pool = new Pool() 
 
+//These lines are only needed for the MongoDB part
 const MongoClient = require('mongodb').MongoClient;
 const uri = `mongodb+srv://Vefskolinn:${process.env.MONGOPASS}@cluster0.ftydf.mongodb.net/Blog?retryWrites=true&w=majority`
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect();
+
+//This is for both:
 const app = express();
-const PORT = 5002; //we will use port 5001
+const PORT = 3005; //we will use port 5001
 
 
 app.use(cors());//telling express to use the cors middleware

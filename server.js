@@ -17,19 +17,21 @@ client.connect();
 
 //This is for both:
 const app = express();
-const PORT = 3005; //we will use port 5001
+const PORT = 5001; //we will use port 5001
 
 
 app.use(cors());//telling express to use the cors middleware
 app.use(express.json())//telling express to accept json in body of POST requests
 
 app.get('/',async (req,res)=>{ //listen to a get request
-  const data = await pool.query('SELECT * from devices;')
-  res.send(data.rows);
+  
+  res.send("Welcome to our API");
 })
 
+// ----------------------------- Routes for Postgres ----------------------------------------
+
 app.get('/p/blogs',async (req,res)=>{ //listen to a get request
-  const data = await pool.query('SELECT * from blogs;')
+  const data = await pool.query('SELECT * from blogs')
   res.send(data.rows);
 })
 
@@ -40,6 +42,14 @@ app.post('/p/blog',async (req,res)=>{ //listen to a post request
     [req.body.title, req.body.text, req.body.picture]
   );
   res.send(data.rows);
+})
+
+// -------------------------- Routes for Mongo -----------------------------------------------
+
+app.get('/m/blogs', async (req, res)=>{
+  const collection = await client.db("Blog").collection("blogs");
+  const result = await collection.find().toArray();
+  res.send(result);
 })
 
 app.post('/m/blog',async (req,res)=>{ //listen to a post request
